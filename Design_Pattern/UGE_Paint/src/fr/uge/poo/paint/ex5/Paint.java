@@ -1,4 +1,4 @@
-package fr.uge.poo.paint.ex4;
+package fr.uge.poo.paint.ex5;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -36,21 +36,16 @@ public class Paint {
 		}
 	}
 
-//	private static void drawAll(Graphics2D graphics, Figures figures) {
-//		graphics.setColor(Color.black);
-//		figures.drawAll(graphics);
-//	}
+	private static void drawAll(Graphics2D graphics, Figures figures) {
+		graphics.setColor(Color.black);
+		figures.drawAll(graphics);
+	}
 
 	private static void callback(SimpleGraphics area, int x, int y, Figures figures) {
-		area.clear(Color.WHITE);
 		area.render(graphics -> {
 			System.out.println(x + ", " + y);
 			graphics.setColor(Color.RED);
-			Figure closest = figures.closestFigure(x, y);
-			if (closest == null) {
-				return;
-			}
-			closest.draw(graphics);
+			figures.closestFigure(x, y).draw(graphics);
 		});
 	}
 
@@ -68,7 +63,7 @@ public class Paint {
 		
 		SimpleGraphics area = new SimpleGraphics("area", 800, 600);
 		area.clear(Color.WHITE);
-//		area.render(graphics -> drawAll(graphics, figures));
+		area.render(graphics -> drawAll(graphics, figures));
 		area.waitForMouseEvents((x, y) -> callback(area, x, y, figures));
 	}
 

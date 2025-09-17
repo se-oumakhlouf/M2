@@ -1,8 +1,7 @@
-package fr.uge.poo.paint.ex4;
+package fr.uge.poo.paint.ex5;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class Figures {
 	
@@ -17,11 +16,16 @@ public class Figures {
 	}
 	
 	public Figure closestFigure(int x, int y) {
-		if (figures.isEmpty()) {
-			return null;
+		Figure closest = figures.getFirst();
+		double minDistance = Double.MAX_VALUE;
+		for (var figure : figures) {
+			double distance = figure.distance(x, y);
+			if (distance < minDistance) {
+				closest = figure;
+				minDistance = distance;
+			}
 		}
-		var closest =  figures.stream().min(Comparator.comparingDouble(figure -> figure.distance(x, y)));
-		return closest.get();
+		return closest;
 	}
 	
 }

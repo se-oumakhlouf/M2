@@ -14,4 +14,18 @@ public class Figures {
 	public void drawAll(Graphics2D graphics) {
 		figures.forEach(figure -> figure.draw(graphics));
 	}
+	
+	public Figure closestFigure(int x, int y) {
+		Figure closest = figures.getFirst();
+		double minDistance = Double.MAX_VALUE;
+		for (var figure : figures) {
+			double distance = figure.distance(x, y);
+			if (distance < minDistance) {
+				closest = figure;
+				minDistance = distance;
+			}
+		}
+		return closest;
+	}
+	
 }

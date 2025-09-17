@@ -20,25 +20,33 @@ public class Paint {
 		int y1 = Integer.parseInt(tokens[2]);
 		int x2 = Integer.parseInt(tokens[3]);
 		int y2 = Integer.parseInt(tokens[4]);
-		
+
 		switch (tokens[0]) {
-		case "line":
-			figures.add(new Line(x1, y1, x2, y2));
-			break;
-		case "rectangle":
-			figures.add(new Rectangle(x1, y1, x2, y2));
-			break;
-		case "ellipse":
-			figures.add(new Ellipse(x1, y1, x2, y2));
-			break;
-		default:
-			throw new UnsupportedOperationException();
+			case "line":
+				figures.add(new Line(x1, y1, x2, y2));
+				break;
+			case "rectangle":
+				figures.add(new Rectangle(x1, y1, x2, y2));
+				break;
+			case "ellipse":
+				figures.add(new Ellipse(x1, y1, x2, y2));
+				break;
+			default:
+				throw new UnsupportedOperationException();
 		}
 	}
 
-	static void drawAll(Graphics2D graphics, Figures figures) {
+	private static void drawAll(Graphics2D graphics, Figures figures) {
 		graphics.setColor(Color.black);
 		figures.drawAll(graphics);
+	}
+
+	private static void callback(SimpleGraphics area, int x, int y, Figures figures) {
+		area.render(graphics -> {
+			System.out.println(x + ", " + y);
+			graphics.setColor(Color.RED);
+			figures.closestFigure(x, y).draw(graphics);
+		});
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -47,14 +55,16 @@ public class Paint {
 		}
 
 		Figures figures = new Figures();
-
+		
 		Path path = Paths.get(args[0]);
 		try (Stream<String> lines = Files.lines(path)) {
 			lines.forEach(line -> splitLines(line, figures));
 		}
+		
 		SimpleGraphics area = new SimpleGraphics("area", 800, 600);
 		area.clear(Color.WHITE);
 		area.render(graphics -> drawAll(graphics, figures));
+		area.waitForMouseEvents((x, y) -> callback(area, x, y, figures));
 	}
 
 }

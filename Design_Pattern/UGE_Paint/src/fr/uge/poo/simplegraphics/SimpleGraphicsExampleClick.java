@@ -6,6 +6,7 @@ public class SimpleGraphicsExampleClick {
 
     private static void callback(SimpleGraphics area, int x, int y) {
         area.render(graphics -> {
+        	System.out.println(x + ", " + y);
             graphics.setColor(Color.BLACK);
             graphics.drawRect(x - 18, y - 18, 36, 36);
         });

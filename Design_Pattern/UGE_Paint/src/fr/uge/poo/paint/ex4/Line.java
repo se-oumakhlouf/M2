@@ -17,4 +17,12 @@ public final class Line implements Figure {
 	public void draw(Graphics2D graphics) {
 		graphics.drawLine(x1, y1, x2, y2);
 	}
+	
+	@Override 
+	public double distance(int x, int y) {
+		int x_center = (x1 + x2) / 2;
+		int y_center =  (y1 + y2) / 2;
+		return Figure.distanceSq(x_center, y_center, x, y);
+	}
+	
 }

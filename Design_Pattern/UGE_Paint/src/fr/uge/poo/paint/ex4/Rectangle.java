@@ -17,4 +17,11 @@ public final class Rectangle implements Figure {
 	public void draw(Graphics2D graphics) {
 		graphics.drawRect(x, y, width, height);
 	}
+	
+	@Override
+	public double distance(int x, int y) {
+		int x_center = this.x + width / 2;
+		int y_center = this.y + height / 2;
+		return Figure.distanceSq(x_center, y_center, x, y);
+	}
 }

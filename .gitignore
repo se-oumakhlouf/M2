@@ -1,0 +1,25 @@
+### Java
+*.class
+
+### Compilation
+bin/
+out/
+build/
+target/
+
+
+
+### IDE
+
+# IntelliJ
+*.iml
+*.iws
+.idea/
+
+# VSCode
+.vscode/
+
+# Eclipse
+*.project
+*.classpath
+.settings/

@@ -2,7 +2,7 @@ package fr.uge.poo.paint.ex4;
 
 import java.awt.Graphics2D;
 
-public abstract non-sealed class Shape implements Figure {
+abstract class Shape {
 
 	final int x, y, width, height;
 

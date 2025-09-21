@@ -1,7 +1,5 @@
 package fr.uge.poo.paint.ex5;
 
-import java.awt.Graphics2D;
-
 public final class Rectangle extends Shape implements Figure {
 
 	public Rectangle(int x, int y, int width, int height) {

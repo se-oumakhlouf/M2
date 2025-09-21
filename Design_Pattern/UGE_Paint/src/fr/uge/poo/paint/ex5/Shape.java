@@ -1,7 +1,5 @@
 package fr.uge.poo.paint.ex5;
 
-import java.awt.Graphics2D;
-
 abstract class Shape {
 
 	final int x, y, width, height;

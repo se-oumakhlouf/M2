@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Stream;
 
 import fr.uge.poo.simplegraphics.SimpleGraphics;
@@ -32,7 +30,7 @@ public class Paint {
 				figures.add(new Ellipse(x1, y1, x2, y2));
 				break;
 			default:
-				throw new UnsupportedOperationException();
+				throw new UnsupportedOperationException("Expected line/rectangle/ellipse, found " + tokens[0]);
 		}
 	}
 
@@ -41,17 +39,23 @@ public class Paint {
 		figures.drawAll(graphics);
 	}
 
-	private static void callback(SimpleGraphics area, int x, int y, Figures figures) {
-		area.render(graphics -> {
-			System.out.println(x + ", " + y);
-			graphics.setColor(Color.RED);
-			figures.closestFigure(x, y).draw(graphics);
-		});
-	}
+//	private static void onClick(Graphics area, int x, int y, Figures figures) {
+//		area.reset(Color.WHITE);
+//		area.render(graphics -> {
+//			System.out.println(x + ", " + y);
+//			graphics.setColor(Color.RED);
+//			Figure closest = figures.closestFigure(x, y);
+//			if (closest == null) {
+//				return;
+//			}
+//			closest.draw(graphics);
+//		});
+//	}
 
 	public static void main(String[] args) throws IOException {
 		if (args.length < 1) {
-			throw new IllegalArgumentException("Need a file in args");
+			throw new IllegalArgumentException("Expected Arguments : {file.txt} {option}.\n"
+					+ "option :\n\t" + "default -> CoolGraphics,\n\t" + "-legacy -> SimpleGraphics");
 		}
 
 		Figures figures = new Figures();
@@ -61,10 +65,15 @@ public class Paint {
 			lines.forEach(line -> splitLines(line, figures));
 		}
 		
-		SimpleGraphics area = new SimpleGraphics("area", 800, 600);
-		area.clear(Color.WHITE);
-		area.render(graphics -> drawAll(graphics, figures));
-		area.waitForMouseEvents((x, y) -> callback(area, x, y, figures));
+		Graphics graphics = Library.build(args, "area", 800, 600);
+		
+		graphics.reset(Color.WHITE);
+		
+		graphics.drawRectangle(100,  100, 100, 100, Color.red);
+		
+//		graphics.render(graphics2D -> drawAll(graphics2D, figures));
+		
+//		graphics.waitForMouseEvents((x, y) -> onClick(graphics, x, y, figures));
 	}
 
 }

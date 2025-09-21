@@ -1,7 +1,5 @@
 package fr.uge.poo.paint.ex5;
 
-import java.awt.Graphics2D;
-
 public final class Ellipse extends Shape implements Figure {
 		
 	public Ellipse(int x, int y, int width, int height) {
@@ -9,8 +7,8 @@ public final class Ellipse extends Shape implements Figure {
 	}
 
 	@Override
-	public void draw(Graphics2D graphics) {
-		graphics.drawOval(x, y, width, height);
+	public void draw(Graphics graphics) {
+		graphics.drawEllipse(x, y, width, height);
 	}
 
 }

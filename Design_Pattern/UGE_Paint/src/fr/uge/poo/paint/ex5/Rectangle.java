@@ -9,7 +9,7 @@ public final class Rectangle extends Shape implements Figure {
 	}
 
 	@Override
-	public void draw(Graphics2D graphics) {
-		graphics.drawRect(x, y, width, height);
+	public void draw(Graphics graphics) {
+		graphics.drawRectangle(x, y, width, height);
 	}
 }

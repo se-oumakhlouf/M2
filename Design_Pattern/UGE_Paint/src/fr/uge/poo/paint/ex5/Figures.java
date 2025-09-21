@@ -1,6 +1,4 @@
 package fr.uge.poo.paint.ex5;
-
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -12,7 +10,7 @@ public class Figures {
 		figures.add(figure);
 	}
 
-	public void drawAll(Graphics2D graphics) {
+	public void drawAll(Graphics graphics) {
 		figures.forEach(figure -> figure.draw(graphics));
 	}
 	

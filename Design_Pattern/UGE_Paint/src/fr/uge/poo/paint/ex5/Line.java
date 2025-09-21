@@ -1,7 +1,5 @@
 package fr.uge.poo.paint.ex5;
 
-import java.awt.Graphics2D;
-
 public final class Line implements Figure {
 	
 	private final int x1, y1, x2, y2;
@@ -14,7 +12,7 @@ public final class Line implements Figure {
 	}
 	
 	@Override
-	public void draw(Graphics2D graphics) {
+	public void draw(Graphics graphics) {
 		graphics.drawLine(x1, y1, x2, y2);
 	}
 	

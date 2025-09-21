@@ -34,46 +34,42 @@ public class Paint {
 		}
 	}
 
-	private static void drawAll(Graphics2D graphics, Figures figures) {
-		graphics.setColor(Color.black);
+	private static void drawAll(Graphics graphics, Figures figures) {
 		figures.drawAll(graphics);
 	}
 
-//	private static void onClick(Graphics area, int x, int y, Figures figures) {
-//		area.reset(Color.WHITE);
-//		area.render(graphics -> {
-//			System.out.println(x + ", " + y);
-//			graphics.setColor(Color.RED);
-//			Figure closest = figures.closestFigure(x, y);
-//			if (closest == null) {
-//				return;
-//			}
-//			closest.draw(graphics);
-//		});
-//	}
+	private static void onClick(Graphics graphics, int x, int y, Figures figures) {
+		graphics.reset(Color.WHITE);
+		System.out.println(x + ", " + y);
+		Figure closest = figures.closestFigure(x, y);
+		if (closest == null) {
+			return;
+		}
+		closest.draw(graphics);
+	}
 
 	public static void main(String[] args) throws IOException {
 		if (args.length < 1) {
-			throw new IllegalArgumentException("Expected Arguments : {file.txt} {option}.\n"
-					+ "option :\n\t" + "default -> CoolGraphics,\n\t" + "-legacy -> SimpleGraphics");
+			throw new IllegalArgumentException("Expected Arguments : {file.txt} {option}.\n" + "option :\n\t"
+					+ "default -> CoolGraphics,\n\t" + "-legacy -> SimpleGraphics");
 		}
 
 		Figures figures = new Figures();
-		
+
 		Path path = Paths.get(args[0]);
 		try (Stream<String> lines = Files.lines(path)) {
 			lines.forEach(line -> splitLines(line, figures));
 		}
-		
+
 		Graphics graphics = Library.build(args, "area", 800, 600);
-		
+
 		graphics.reset(Color.WHITE);
-		
-		graphics.drawRectangle(100,  100, 100, 100, Color.red);
-		
+
+		graphics.drawRectangle(100, 100, 100, 100, Color.red);
+
 //		graphics.render(graphics2D -> drawAll(graphics2D, figures));
-		
-//		graphics.waitForMouseEvents((x, y) -> onClick(graphics, x, y, figures));
+
+		graphics.waitForMouseEvents((x, y) -> onClick(graphics, x, y, figures));
 	}
 
 }

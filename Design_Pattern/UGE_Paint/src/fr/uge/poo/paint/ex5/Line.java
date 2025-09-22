@@ -12,7 +12,7 @@ public final class Line implements Figure {
 	}
 	
 	@Override
-	public void draw(Graphics graphics) {
+	public void draw(Canvas graphics) {
 		graphics.drawLine(x1, y1, x2, y2);
 	}
 	

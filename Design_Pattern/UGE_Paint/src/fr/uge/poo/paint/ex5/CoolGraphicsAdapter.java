@@ -6,7 +6,7 @@ import java.util.Map;
 import com.evilcorp.coolgraphics.CoolGraphics;
 import com.evilcorp.coolgraphics.CoolGraphics.ColorPlus;
 
-public class CoolGraphicsAdapter implements Graphics {
+public class CoolGraphicsAdapter implements Canvas {
 	
 	private final CoolGraphics coolGraphics;
 	
@@ -33,17 +33,6 @@ public class CoolGraphicsAdapter implements Graphics {
 	public void drawEllipse(int x, int y, int width, int height, Color color) {
 		ColorPlus colorPlus = COLOR_MAPPING.getOrDefault(color, ColorPlus.BLACK);
 		coolGraphics.drawEllipse(x, y, width, height, colorPlus);
-	}
-
-	@Override
-	public void drawRectangle(int x, int y, int width, int height, Color color) {
-		ColorPlus colorPlus = COLOR_MAPPING.getOrDefault(color, ColorPlus.BLACK);
-		int x2 = x + width;
-		int y2 = y + height;
-		coolGraphics.drawLine(x, y, x2, y, colorPlus);
-		coolGraphics.drawLine(x2, y, x2, y2, colorPlus);
-		coolGraphics.drawLine(x2, y2, x, y2, colorPlus);
-		coolGraphics.drawLine(x, y2, x, y, colorPlus);
 	}
 	
 	@Override

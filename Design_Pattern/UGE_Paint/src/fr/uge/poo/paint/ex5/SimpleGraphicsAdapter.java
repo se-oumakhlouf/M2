@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import fr.uge.poo.simplegraphics.SimpleGraphics;
 
-public class SimpleGraphicsAdapter implements Graphics {
+public class SimpleGraphicsAdapter implements Canvas {
 
 	private final SimpleGraphics simpleGraphics;
 

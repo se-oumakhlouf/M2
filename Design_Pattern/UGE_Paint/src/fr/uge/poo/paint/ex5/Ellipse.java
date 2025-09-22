@@ -7,7 +7,7 @@ public final class Ellipse extends Shape implements Figure {
 	}
 
 	@Override
-	public void draw(Graphics graphics) {
+	public void draw(Canvas graphics) {
 		graphics.drawEllipse(x, y, width, height);
 	}
 

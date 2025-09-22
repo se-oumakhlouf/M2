@@ -17,5 +17,5 @@ abstract class Shape {
 		return Figure.distanceSq(x_center, y_center, x, y);
 	}
 	
-	public abstract void draw(Graphics graphics);
+	public abstract void draw(Canvas graphics);
 }

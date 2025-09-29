@@ -1,14 +1,16 @@
-package fr.uge.poo.paint.ex4;
+package fr.uge.poo.paint.ex7;
 
-import java.awt.Graphics2D;
+import fr.uge.poo.paint.ex7.Canvas.CanvasColor;
 
 public sealed interface Figure permits Line, Rectangle, Ellipse {
 
-	void draw(Graphics2D graphics);
+	void draw(Canvas graphics, CanvasColor color);
 	
 	static double distanceSq(double x1, double y1, double x2, double y2) {
 		return (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1); 
 	}
 	
 	double distance(int x, int y);
+	
+	FigureBounds bounds();
 }

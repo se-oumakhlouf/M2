@@ -1,4 +1,6 @@
-package fr.uge.poo.paint.ex5;
+package fr.uge.poo.paint.ex6;
+
+import fr.uge.poo.paint.ex6.Canvas.CanvasColor;
 
 public final class Line implements Figure {
 	
@@ -12,8 +14,8 @@ public final class Line implements Figure {
 	}
 	
 	@Override
-	public void draw(Canvas graphics) {
-		graphics.drawLine(x1, y1, x2, y2);
+	public void draw(Canvas graphics, CanvasColor color) {
+		graphics.drawLine(x1, y1, x2, y2, color);
 	}
 	
 	@Override 

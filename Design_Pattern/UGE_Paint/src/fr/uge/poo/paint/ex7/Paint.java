@@ -1,9 +1,10 @@
-package fr.uge.poo.paint.ex5;
+package fr.uge.poo.paint.ex7;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import fr.uge.poo.paint.ex7.Canvas.CanvasColor;
 
 public class Paint {
 
@@ -16,9 +17,9 @@ public class Paint {
 		Path path = Paths.get(args[0]);
 		Drawing figures = Drawing.fromFile(path);
 
-		Canvas graphics = Library.build(args, "area", 800, 600);
-		graphics.reset(Color.WHITE);
-		figures.drawAll(graphics);
+		Canvas graphics = Library.build(args, "area", figures.windowX(), figures.windowY());
+		graphics.reset(CanvasColor.WHITE);
+		figures.drawAll(graphics, CanvasColor.BLACK);
 		graphics.waitForMouseEvents((x, y) -> figures.onClick(graphics, x, y));
 	}
 

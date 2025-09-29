@@ -1,6 +1,6 @@
-package fr.uge.poo.paint.ex4;
+package fr.uge.poo.paint.ex6;
 
-import java.awt.Graphics2D;
+import fr.uge.poo.paint.ex6.Canvas.CanvasColor;
 
 abstract class Shape {
 
@@ -19,5 +19,5 @@ abstract class Shape {
 		return Figure.distanceSq(x_center, y_center, x, y);
 	}
 	
-	public abstract void draw(Graphics2D graphics);
+	public abstract void draw(Canvas graphics, CanvasColor color);
 }

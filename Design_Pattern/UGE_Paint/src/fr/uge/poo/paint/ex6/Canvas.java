@@ -27,8 +27,4 @@ public interface Canvas {
 	void reset(CanvasColor color);
 	
 	void waitForMouseEvents(MouseClickCallback callback);
-	
-	default void render() {
-		return;
-	}
 }

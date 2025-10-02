@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 
 import fr.uge.poo.simplegraphics.SimpleGraphics;
 
-public class SimpleGraphicsAdapter implements RenderableCanvas {
+public class SimpleGraphicsAdapter implements Canvas {
 
 	private final SimpleGraphics simpleGraphics;
 	private final ArrayList<Consumer<Graphics2D>> drawingActions = new ArrayList<>();

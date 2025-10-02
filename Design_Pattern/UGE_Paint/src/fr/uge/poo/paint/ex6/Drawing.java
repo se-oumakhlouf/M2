@@ -18,9 +18,7 @@ public class Drawing {
 
 	public void drawAll(Canvas graphics, CanvasColor color) {
 		figures.forEach(figure -> figure.draw(graphics, color));
-		if (graphics instanceof RenderableCanvas renderableCanvas) {
-			renderableCanvas.render();
-		}
+		graphics.render();
 	}
 	
 	public Figure closestFigure(int x, int y) {
@@ -68,9 +66,7 @@ public class Drawing {
 			return;
 		}
 		closest.draw(graphics, CanvasColor.ORANGE);
-		if (graphics instanceof RenderableCanvas renderableCanvas) {
-			renderableCanvas.render();
-		}
+		graphics.render();
 	}
 	
 	

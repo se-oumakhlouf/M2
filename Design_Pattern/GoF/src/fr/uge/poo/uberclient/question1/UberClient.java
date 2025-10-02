@@ -5,6 +5,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
+
+// Quel principe SOLID n'est plus respecté par la classe UberClient ?
+// 		SRP (Single Responsibility Principle), deux responsabilités :
+//				- gérer les données de UberClient
+// 				- Formater l'affichage HTML
+
+
+// Votre boss vient vous voir en catastrophe pour vous dire que les adresses mails ne doivent surtout plus être affichées en clair. On veut a*@u* au lieu de arnaud.carayol@univ-eiffel.fr.
+// Effectuez les changements demandés. Est-ce que vous voyez un gain avec votre nouvelle architecture par rapport au code initial ?
+//		Besoin de changer une seule implémentation qui se propage sur toutes les méthodes
+
 public class UberClient {
 
 	private final String firstName;
@@ -48,24 +59,24 @@ public class UberClient {
 			grades.add(grade);
 			return this;
 		}
-		
+
 		public UberClientBuilder grades(List<Integer> grades) {
 			for (var grade : grades) {
 				grades(grade);
 			}
 			return this;
 		}
-		
+
 		public UberClientBuilder email(String email) {
 			emails.add(email);
 			return this;
 		}
-		
+
 		public UberClientBuilder phoneNumbers(String phoneNumber) {
 			phoneNumbers.add(phoneNumber);
 			return this;
 		}
-		
+
 		public UberClient build() {
 			if (firstName == null || lastName == null || grades.isEmpty() || phoneNumbers.isEmpty()) {
 				throw new IllegalArgumentException();
@@ -76,16 +87,56 @@ public class UberClient {
 			return new UberClient(firstName, lastName, uid, grades, emails, phoneNumbers);
 		}
 	}
-	
+
 	public static UberClientBuilder with() {
 		return new UberClientBuilder();
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public List<Integer> getGrades() {
+		return grades;
+	}
+
+	public List<String> getEmails() {
+		return emails;
+	}
+
+	public HTMLFormatter htmlFormatter() {
+		return new HTMLFormatter(this);
+	}
+
+	public String toHTML() {
+		return htmlFormatter().withAverage().build();
+	}
+
+	public String toHTMWithAverageOverLast7Grades() {
+		return htmlFormatter().withAverageOverLast(7).build();
+	}
+
+	public String toHTMLSimple() {
+		return htmlFormatter().build();
+	}
+
+	public String toHtmlWithEmails() {
+		return htmlFormatter().withAverage().withEmails().build();
+	}
+
+	public String toHtmlWithEmailsAndAverageOverLast5Grades() {
+		return htmlFormatter().withAverageOverLast(5).withEmails().build();
 	}
 
 	private UberClient(String firstName, String lastName, long uid, List<Integer> grades, List<String> emails,
 			List<String> phoneNumbers) {
 		this.firstName = Objects.requireNonNull(firstName);
 		this.lastName = Objects.requireNonNull(lastName);
-		if (uid < 0) {
+		if (uid <= 0) {
 			throw new IllegalArgumentException("UID must be positive");
 		}
 		this.uid = uid;
@@ -107,59 +158,19 @@ public class UberClient {
 
 	private UberClient(String firstName, String lastName, List<Integer> grades, List<String> emails,
 			List<String> phoneNumbers) {
-		this(firstName, lastName, ThreadLocalRandom.current().nextLong(0, Long.MAX_VALUE), grades, emails,
-				phoneNumbers);
+		this(firstName, lastName, ThreadLocalRandom.current().nextLong(0, Long.MAX_VALUE), grades, emails, phoneNumbers);
 	}
-	
-    public String toHTML() {
-        var averageGrade= grades.stream().mapToLong(l -> l).average().orElseThrow(() -> new AssertionError("Client are meant to have at least one grade"));
-        return String.format("<h2>%s %s  (%1.2f*)</h2>",firstName,lastName,averageGrade);
-    }
-
-    public String toHTMWithAverageOverLast7Grades() {
-        var averageGrade= grades.stream().limit(7).mapToLong(l -> l).average().orElseThrow(() -> new AssertionError("Client are meant to have at least one grade"));
-        return String.format("<h2>%s %s  (%1.2f*)</h2>",firstName,lastName,averageGrade);
-    }
-
-    public String toHTMLSimple() {
-        return String.format("<h2>%s %s </h2>",firstName,lastName);
-    }
-
-    public String toHtmlWithEmails() {
-            var averageGrade = grades.stream().mapToLong(l -> l).average().orElseThrow(() -> new AssertionError("Client are meant to have at least one grade"));
-            return String.format("<h2>%s %s (%1.2f*) : %s </h2>",firstName,lastName,averageGrade,emails);
-    }
-
-    public String toHtmlWithEmailsAndAverageOverLast5Grades() {
-        var averageGrade= grades.stream().limit(5).mapToLong(l -> l).average().orElseThrow(() -> new AssertionError("Client are meant to have at least one grade"));
-        return String.format("<h2>%s %s (%1.2f*) : %s </h2>",firstName,lastName,averageGrade,emails);
-    }
 
 	public static void main(String[] args) {
-//		var arnaud = new UberClient("Arnaud", "Carayol", 1, List.of(1, 2, 5, 2, 5, 1, 1, 1),
-//				List.of("arnaud.carayol@univ-eiffel.fr", "arnaud.carayol@u-pem.fr"), List.of("07070707070707"));
-//		var youssef = new UberClient("Youssef", "Bergeron", List.of(5), List.of("youssefbergeron@outlook.fr"),
-//				List.of());
-		
-		UberClient arnaudBuild = UberClient.with()
-				.firstName("Arnaud")
-				.lastName("Carayol")
-				.uid(1)
-				.grades(List.of(1, 2, 5, 2, 5, 1, 1, 1))
-				.email("arnaud.carayol@univ-eiffel.fr").email("arnaud.carayol@u-pem.fr")
-				.phoneNumbers("07070707070707")
-				.build();
-		
-		UberClient youssefBuild = UberClient.with()
-				.firstName("Youssef")
-				.lastName("Bergeron")
-				.grades(5)
-				.email("youssefbergeron@outlook.fr")
-				.phoneNumbers("")
-				.build();
-		
-		System.out.println(arnaudBuild);
-		System.out.println(youssefBuild);
+		var arnaud = UberClient.with().firstName("Arnaud").lastName("Carayol").uid(1)
+				.grades(List.of(1, 2, 5, 2, 5, 1, 1, 1)).email("arnaud.carayol@univ-eiffel.fr").email("arnaud.carayol@u-pem.fr")
+				.phoneNumbers("07070707070707").build();
+
+		System.out.println(arnaud.toHTML());
+		System.out.println(arnaud.toHTMLSimple());
+		System.out.println(arnaud.toHTMWithAverageOverLast7Grades());
+		System.out.println(arnaud.toHtmlWithEmails());
+		System.out.println(arnaud.toHtmlWithEmailsAndAverageOverLast5Grades());
 	}
 
 }

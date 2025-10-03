@@ -5,12 +5,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
-
 // Quel principe SOLID n'est plus respecté par la classe UberClient ?
 // 		SRP (Single Responsibility Principle), deux responsabilités :
 //				- gérer les données de UberClient
 // 				- Formater l'affichage HTML
-
 
 // Votre boss vient vous voir en catastrophe pour vous dire que les adresses mails ne doivent surtout plus être affichées en clair. On veut a*@u* au lieu de arnaud.carayol@univ-eiffel.fr.
 // Effectuez les changements demandés. Est-ce que vous voyez un gain avec votre nouvelle architecture par rapport au code initial ?
@@ -91,47 +89,15 @@ public class UberClient {
 	public static UberClientBuilder with() {
 		return new UberClientBuilder();
 	}
-
-	public String getFirstName() {
-		return firstName;
+	
+	private UberClientInfo infos() {
+		return new UberClientInfo(firstName, lastName, emails, grades);
 	}
-
-	public String getLastName() {
-		return lastName;
+	
+	public String export(UberClientFormatter formater) {
+		return formater.format(infos());
 	}
-
-	public List<Integer> getGrades() {
-		return grades;
-	}
-
-	public List<String> getEmails() {
-		return emails;
-	}
-
-	public HTMLFormatter htmlFormatter() {
-		return new HTMLFormatter(this);
-	}
-
-	public String toHTML() {
-		return htmlFormatter().withAverage().build();
-	}
-
-	public String toHTMWithAverageOverLast7Grades() {
-		return htmlFormatter().withAverageOverLast(7).build();
-	}
-
-	public String toHTMLSimple() {
-		return htmlFormatter().build();
-	}
-
-	public String toHtmlWithEmails() {
-		return htmlFormatter().withAverage().withEmails().build();
-	}
-
-	public String toHtmlWithEmailsAndAverageOverLast5Grades() {
-		return htmlFormatter().withAverageOverLast(5).withEmails().build();
-	}
-
+	
 	private UberClient(String firstName, String lastName, long uid, List<Integer> grades, List<String> emails,
 			List<String> phoneNumbers) {
 		this.firstName = Objects.requireNonNull(firstName);
@@ -158,19 +124,20 @@ public class UberClient {
 
 	private UberClient(String firstName, String lastName, List<Integer> grades, List<String> emails,
 			List<String> phoneNumbers) {
-		this(firstName, lastName, ThreadLocalRandom.current().nextLong(0, Long.MAX_VALUE), grades, emails, phoneNumbers);
+		this(firstName, lastName, ThreadLocalRandom.current().nextLong(0, Long.MAX_VALUE), grades, emails,
+				phoneNumbers);
 	}
 
 	public static void main(String[] args) {
 		var arnaud = UberClient.with().firstName("Arnaud").lastName("Carayol").uid(1)
-				.grades(List.of(1, 2, 5, 2, 5, 1, 1, 1)).email("arnaud.carayol@univ-eiffel.fr").email("arnaud.carayol@u-pem.fr")
-				.phoneNumbers("07070707070707").build();
+				.grades(List.of(1, 2, 5, 2, 5, 1, 1, 1)).email("arnaud.carayol@univ-eiffel.fr")
+				.email("arnaud.carayol@u-pem.fr").phoneNumbers("07070707070707").build();
 
-		System.out.println(arnaud.toHTML());
-		System.out.println(arnaud.toHTMLSimple());
-		System.out.println(arnaud.toHTMWithAverageOverLast7Grades());
-		System.out.println(arnaud.toHtmlWithEmails());
-		System.out.println(arnaud.toHtmlWithEmailsAndAverageOverLast5Grades());
+//		System.out.println(arnaud.toHTML());
+//		System.out.println(arnaud.toHTMLSimple());
+//		System.out.println(arnaud.toHTMWithAverageOverLast7Grades());
+//		System.out.println(arnaud.toHtmlWithEmails());
+//		System.out.println(arnaud.toHtmlWithEmailsAndAverageOverLast5Grades());
 	}
 
 }

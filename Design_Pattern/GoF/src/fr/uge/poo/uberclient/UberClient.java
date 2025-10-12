@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 // Quel principe SOLID n'est plus respecté par la classe UberClient ?

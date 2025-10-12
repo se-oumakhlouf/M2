@@ -1,21 +1,22 @@
-package fr.uge.poo.newsletter.question1to3;
-
+package fr.uge.poo.newsletter.question4;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import com.evilcorp.eemailer.EEMailer;
 import com.evilcorp.eemailer.EEMailer.Mail;
 
-import fr.uge.poo.newsletter.question1to3.User.Nationality;
+import fr.uge.poo.newsletter.question4.User.Nationality;
 
 public class Newsletter {
 	
 	static class NewsletterBuilder {
 		private String name;
 		private Predicate<User> conditions = _ -> true;
+		private Supplier<Mailer> mailerSupplier = EEMAILER;
 		
 		public NewsletterBuilder name(String name) {
 			this.name = Objects.requireNonNull(name);
@@ -42,6 +43,12 @@ public class Newsletter {
 			return this;
 		}
 		
+		public NewsletterBuilder mailer(Supplier<Mailer> mailerSupplier) {
+			Objects.requireNonNull(mailerSupplier);
+			this.mailerSupplier = mailerSupplier;
+			return this;
+		}
+		
 		public Newsletter build() {
 			if (name == null) {
 				throw new IllegalStateException("the newsletter must have name");
@@ -50,98 +57,57 @@ public class Newsletter {
 		}
 	}
 
-	private final EEMailer eemailer = new EEMailer();
+	private final Mailer mailer;
 
 	private final String name;
-	private final Map<String, User> newsletter;
+	private final Map<String, User> users;
 	private final Predicate<User> conditions;
-
-	private Newsletter(String nom, Predicate<User> predicate) {
+	
+	private static final Supplier<Mailer> GMAILER = () -> new GMailerAdapter();
+	private static final Supplier<Mailer> EEMAILER = () -> new EEmailerAdapter();
+		
+	private Newsletter(String nom, Predicate<User> predicate, Supplier<Mailer> mailerSupplier) {
 		this.name = Objects.requireNonNull(nom);
-		this.newsletter = new HashMap<String, User>();
+		this.users = new HashMap<String, User>();
 		this.conditions = Objects.requireNonNull(predicate);
+		this.mailer = mailerSupplier.get();
 	}
 	
 	public Newsletter(NewsletterBuilder builder) {
-		this(builder.name, builder.conditions);
+		this(builder.name, builder.conditions, builder.mailerSupplier);
 	}
 
 	public boolean subscribe(User user) {
 		Objects.requireNonNull(user);
-		return conditions.test(user) && newsletter.putIfAbsent(user.email(), user) == null;
+		return conditions.test(user) && users.putIfAbsent(user.email(), user) == null;
 	}
 
 	public boolean unsubscribe(String email) {
 		Objects.requireNonNull(email);
-		return newsletter.remove(email) == null;
-	}
-
-	public void sendMessage(String recipient, String subject, String content) {
-		Mail mail = new EEMailer.Mail(recipient, "[" + name + "]" + " " + subject, content);
-		eemailer.send(mail);
+		return users.remove(email) == null;
 	}
 
 	public void sendMessage(String title, String content) {
 		Objects.requireNonNull(title);
 		Objects.requireNonNull(content);
-		for (String email : newsletter.keySet()) {
-			sendMessage(email, title, content);
-		}
+		mailer.sendMailAll(users.keySet().stream().toList(), "[" + name + "]" + title, content);
 	}
 
 	public static void main(String[] args) {
-		Newsletter potter = new Newsletter("Potter4ever",
-				user -> user.age() >= 18 && user.nationality() == Nationality.BRITISH);
-
-		Newsletter java = new Newsletter("Java4ever", user -> user.age() >= 21 && (user.nationality() == Nationality.FRENCH || user.nationality() == Nationality.BRITISH));
-		
 		User arnaud = new User("Arnaud", "arnaud.carayol@univ-eiffel.fr", 18, Nationality.FRENCH);
 		User youssef = new User("Youssef", "youssef@u-pem.fr", 25, Nationality.BRITISH);
-		
-		potter.subscribe(youssef);
-		potter.subscribe(arnaud);
-		potter.sendMessage("Design Pattern", "C'est pas si simple");
-		
-		java.subscribe(youssef);
-		java.subscribe(arnaud);
-		java.sendMessage("Java", "C'est toujours pas si simple");
-		
-		potter.unsubscribe("youssef@u-pem.fr");
-		
-		potter.sendMessage("Design Pattern", "On avance");
-		
-		
-		// builder
-		System.out.println();
-		
-		Newsletter potterFromBuild = new NewsletterBuilder()
-				.name("Potter4EverFromBuilder")
-				.ageAbove(18)
-				.nationality(List.of(Nationality.BRITISH))
-				.build();
-		
-		Newsletter javaFromBuild = new NewsletterBuilder()
-				.name("Java4EverFromBuilder")
-				.ageAbove(21)
-				.nationality(List.of(Nationality.FRENCH, Nationality.BRITISH))
-				.build();
+		User someone = new User("Some", "one@univ-eiffel.fr", 24, Nationality.SPANISH);
 		
 		Newsletter whyMe = new NewsletterBuilder()
 				.name("Why me!")
 				.restriction(user -> user.age() % 2 == 0)
 				.restriction(user -> user.email().endsWith("univ-eiffel.fr"))
+				.mailer(Newsletter.GMAILER)
 				.build();
-		
-		potterFromBuild.subscribe(youssef);
-		potterFromBuild.subscribe(arnaud);
-		potterFromBuild.sendMessage("Design Pattern Builder", "It's not that simple");
-		
-		javaFromBuild.subscribe(youssef);
-		javaFromBuild.subscribe(arnaud);
-		javaFromBuild.sendMessage("Java Builder", "It is still not that simple");
 		
 		whyMe.subscribe(youssef);
 		whyMe.subscribe(arnaud);
+		whyMe.subscribe(someone);
 		whyMe.sendMessage("Something something", "Something is indeed something");
 		
 	}

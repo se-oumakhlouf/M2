@@ -6,9 +6,6 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
-import com.evilcorp.eemailer.EEMailer;
-import com.evilcorp.eemailer.EEMailer.Mail;
-
 import fr.uge.poo.newsletter.question4.User.Nationality;
 
 public class Newsletter {

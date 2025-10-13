@@ -1,5 +1,7 @@
 package fr.uge.poo.weatherservice.question3;
 
+import java.util.Optional;
+
 import com.evilcorp.weatherservice.WeatherService;
 
 public class Application {
@@ -12,7 +14,11 @@ public class Application {
 
 		Thread.ofPlatform().start(() -> {
 			for (;;) {
-				WeatherService service = WeatherServiceTSFail.getInstance();
+				Optional<WeatherService> serviceOpt = WeatherServiceTSFail.getInstance();
+				if (serviceOpt.isEmpty()) {
+					continue;
+				}
+				WeatherService service = serviceOpt.get();
 				try {
 					Thread.sleep(1_000);
 				} catch (InterruptedException e) {
@@ -24,7 +30,11 @@ public class Application {
 
 		Thread.ofPlatform().start(() -> {
 			for (;;) {
-				WeatherService service = WeatherServiceTSFail.getInstance();
+				Optional<WeatherService> serviceOpt = WeatherServiceTSFail.getInstance();
+				if (serviceOpt.isEmpty()) {
+					continue;
+				}
+				WeatherService service = serviceOpt.get();
 				try {
 					Thread.sleep(1_000);
 				} catch (InterruptedException e) {

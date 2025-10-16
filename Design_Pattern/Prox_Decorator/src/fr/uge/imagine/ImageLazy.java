@@ -33,14 +33,4 @@ public class ImageLazy implements Image {
   public double hue () {
     return downloader().hue();
   }
-
-  @Override
-  public boolean equals(Object o) {
-    return downloader().equals(o);
-  }
-
-  @Override
-  public int hashCode() {
-    return downloader().hashCode();
-  }
 }

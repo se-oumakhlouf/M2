@@ -18,9 +18,9 @@ public class LoggedDuck implements Duck {
 		duck.quack();
 	}
 
-	@Override
-	public void quackManyTimes(int n) {
-		duck.quackManyTimes(n);
-	}
+//	@Override
+//	public void quackManyTimes(int n) {
+//		duck.quackManyTimes(n);
+//  }
 	
 }

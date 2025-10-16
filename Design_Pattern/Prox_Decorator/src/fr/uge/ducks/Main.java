@@ -20,6 +20,10 @@ public class Main {
 //    LoggedDuck.quack, on obtient donc aucun log
     
 //    Méthode default :
+//    Cela fait un appel à LoggedDuck.quack
+//    On obtient donc nos log
+//    Ce n'est pas robuste, car on ne peut pas
+//    redéfinir la méthode quackManyTmes dans notre LoggedDuck
 	}
 
 }

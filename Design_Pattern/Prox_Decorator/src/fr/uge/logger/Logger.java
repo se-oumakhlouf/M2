@@ -2,10 +2,10 @@ package fr.uge.logger;
 
 import java.io.IOException;
 
-public sealed interface Logger permits PathLogger, SystemLogger{
+public sealed interface Logger permits FullLogger, PathLogger, SystemLogger {
 
   enum LogLevel {
-    INFO, WARNING, ERROR
+    ERROR, WARNING, INFO
   }
 
   void log(LogLevel level, String message) throws IOException;

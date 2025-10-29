@@ -2,3 +2,9 @@ WARNING Hello World! as WARNING
 ERROR Hello World! as ERROR
 WARNING Hello World!
 ERROR Hello World!
+WARNING Hello World!
+ERROR Hello World!
+WARNING Hello World!
+ERROR Hello World!
+WARNING Hello World!
+ERROR Hello World!

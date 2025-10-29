@@ -3,6 +3,13 @@ package com.evilcorp.stp;
 import java.util.Optional;
 import java.util.Scanner;
 
+// Ne resepcte pas Open-close principle
+
+// Polymorphisme : Méthode perform dans l'interface -> pas viable à long terme
+//                  place le traitement du main dans l'objet, ce n'est pas l'objectif
+
+// Patron visitor
+
 public class Triviale {
 
   public static void main(String[] args) {

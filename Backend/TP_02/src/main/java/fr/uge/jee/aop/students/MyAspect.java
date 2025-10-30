@@ -40,5 +40,6 @@ public class MyAspect {
   @After("execution(* fr.uge.jee.aop.students.RegistrationService.printReport(..))")
   public void afterReport(JoinPoint pjp) {
     System.out.println("Measured save to db : " + saveToDB);
+    System.out.println("Average save to db : " + saveToDB.stream().mapToLong(l -> l).average().getAsDouble());
   }
 }

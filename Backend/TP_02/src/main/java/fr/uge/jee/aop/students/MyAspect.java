@@ -31,10 +31,10 @@ public class MyAspect {
 
   @Around(value="execution(* fr.uge.jee.aop.students.RegistrationService.saveToDB(..))")
   public void beforeSaveToDB(ProceedingJoinPoint pjp) throws Throwable {
-    LocalDateTime before = LocalDateTime.now();
+    long before = System.currentTimeMillis();
     pjp.proceed();
-    LocalDateTime after = LocalDateTime.now();
-    saveToDB.add(Duration.between(before, after).toNanos());
+    long after = System.currentTimeMillis();
+    saveToDB.add(after - before);
   }
 
   @After("execution(* fr.uge.jee.aop.students.RegistrationService.printReport(..))")

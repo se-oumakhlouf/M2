@@ -54,7 +54,9 @@ public sealed interface Expr permits BinOp, Expr.Value {
   static void main(String[] args) {
     var iterator = Pattern.compile(" ").splitAsStream("+ * 4 + 1 1 + 2 3").iterator();
     var expr = Expr.parse(iterator);
-    System.out.println(expr.accept(new ToStringVisitor()));
+    var visitor = new ToStringVisitor(new StringBuilder());
+    expr.accept(visitor);
+    System.out.println(visitor);
   }
 
 }

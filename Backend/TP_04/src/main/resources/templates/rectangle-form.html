@@ -1,0 +1,16 @@
+<form th:action="@{/rectangle}" th:object="${rectangle}" method="post">
+
+    <h2>Rectangle area calculator</h2>
+    <div><label for="h">Height:</label>
+        <input id="h" type="text" name="height" th:field="*{height}">
+        <p th:if="${#fields.hasErrors('height')}" th:errorclass="error" th:errors="*{height}" style="color: red"></p>
+    </div>
+
+    <div><label for="w">Width:</label>
+        <input type="text" id="w" name="width" th:field="*{width}">
+        <p th:if="${#fields.hasErrors('width')}" th:errorclass="error" th:errors="*{width}" style="color: red"></p>
+    </div>
+
+    <div><button type="submit">Compute</button></div>
+
+</form>

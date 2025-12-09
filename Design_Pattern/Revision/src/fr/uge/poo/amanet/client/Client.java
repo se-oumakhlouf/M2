@@ -1,0 +1,4 @@
+package fr.uge.poo.amanet.client;
+
+public class Client {
+}

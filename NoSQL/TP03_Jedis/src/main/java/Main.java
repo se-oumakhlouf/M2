@@ -1,30 +1,54 @@
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.Tuple;
 
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
 
-  // Configuration PostgreSQL
   private static final String PG_URL = "jdbc:postgresql://localhost:5487/redisdb";
   private static final String PG_USER = "user";
   private static final String PG_PASSWORD = "password";
 
-  // Pool Redis
   private static final JedisPool jedisPool = new JedisPool(new JedisPoolConfig(), "localhost");
 
   public static void main(String[] args) {
+
+    configureRedisForLRU();
+    Scanner scanner = new Scanner(System.in);
+
     try {
       System.out.println("=== Chargement des données dans Redis ===");
       loadMedicamentsToRedis();
-      System.out.println("\n=== Test de performance ===");
-      int testCis = 60117855;
-      testPostgresPerformance(testCis);
-      testRedisPerformance(testCis);
+
+      while (true) {
+        System.out.println("\n------------------------------------------------");
+        System.out.print("Entrez un code CIS (ou 0 pour quitter) : ");
+
+        if (scanner.hasNextInt()) {
+          int cis = scanner.nextInt();
+
+          if (cis == 0) {
+            System.out.println("Fermeture du programme.");
+            break;
+          }
+
+          System.out.println("\n=== Test pour CIS: " + cis + " ===");
+          testPostgresPerformance(cis);
+          testRedisPerformance(cis);
+
+        } else {
+          System.out.println("Veuillez entrer un nombre valide.");
+          scanner.next();
+        }
+      }
     } finally {
+      scanner.close();
       jedisPool.close();
     }
   }
@@ -43,33 +67,12 @@ public class Main {
       while (rs.next()) {
         int cis = rs.getInt("cis");
         String key = "medicament:" + cis;
+        Map<String, String> medicament = mapResultSetToHash(rs);
 
-        // Créer une map avec les données
-        Map<String, String> medicament = new HashMap<>();
-        medicament.put("cis", String.valueOf(cis));
-        medicament.put("cip7", String.valueOf(rs.getInt("cip7")));
-        medicament.put("cip13", String.valueOf(rs.getLong("cip13")));
-        medicament.put("prese", rs.getString("prese"));
-        medicament.put("statadm", rs.getString("statadm"));
-        medicament.put("etacom", rs.getString("etacom"));
-
-        Date datedecl = rs.getDate("datedecl");
-        if (datedecl != null) {
-          medicament.put("datedecl", datedecl.toString());
-        }
-
-        medicament.put("agrcol", rs.getString("agrcol"));
-        medicament.put("prixe", String.valueOf(rs.getDouble("prixe")));
-        medicament.put("liste", String.valueOf(rs.getInt("liste")));
-        medicament.put("taux", String.valueOf(rs.getInt("taux")));
-        medicament.put("fprixe", String.valueOf(rs.getDouble("fprixe")));
-        medicament.put("disp", String.valueOf(rs.getDouble("disp")));
-
-        // Stocker dans Redis
         jedis.hset(key, medicament);
+        jedis.zadd("medicaments", 1, key);
         count++;
       }
-
       System.out.println("Chargé " + count + " médicaments dans Redis");
 
     } catch (SQLException e) {
@@ -79,8 +82,7 @@ public class Main {
 
   private static void testPostgresPerformance(int cis) {
     long startTime = System.currentTimeMillis();
-
-    String sql = "SELECT * FROM public.bdpm_ciscip2noidx WHERE cis = ?";
+    String sql = "SELECT prese, prixe FROM public.bdpm_ciscip2noidx WHERE cis = ?";
 
     try (Connection conn = DriverManager.getConnection(PG_URL, PG_USER, PG_PASSWORD);
          PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -89,22 +91,16 @@ public class Main {
       ResultSet rs = stmt.executeQuery();
 
       if (rs.next()) {
-        String prese = rs.getString("prese");
-        double prixe = rs.getDouble("prixe");
-        System.out.println("PostgreSQL - Médicament: " + prese + ", Prix: " + prixe);
+        System.out.println("PostgreSQL - Trouvé: " + rs.getString("prese"));
       } else {
         System.out.println("PostgreSQL - Médicament non trouvé");
       }
-
       rs.close();
 
     } catch (SQLException e) {
       e.printStackTrace();
     }
-
-    long endTime = System.currentTimeMillis();
-    long duration = endTime - startTime;
-    System.out.println("Durée PostgreSQL (connexion → fermeture): " + duration + " ms");
+    System.out.println("Temps PostgreSQL : " + (System.currentTimeMillis() - startTime) + " ms");
   }
 
   private static void testRedisPerformance(int cis) {
@@ -116,17 +112,14 @@ public class Main {
 
       if (!medicament.isEmpty()) {
         String prese = medicament.get("prese");
-        String prixe = medicament.get("prixe");
-        System.out.println("Redis - Médicament: " + prese + ", Prix: " + prixe);
+        System.out.println("Redis - Trouvé (Cache Hit): " + prese);
+        jedis.zincrby("medicaments", 1, key);
       } else {
-        System.out.println("Redis - Médicament non trouvé");
-        
+        System.out.println("Redis - Non trouvé (Cache Miss)");
+        cacheMiss(cis);
       }
     }
-
-    long endTime = System.currentTimeMillis();
-    long duration = endTime - startTime;
-    System.out.println("Durée Redis (pool → requête → libération): " + duration + " ms");
+    System.out.println("Temps Redis global : " + (System.currentTimeMillis() - startTime) + " ms");
   }
 
   private static void cacheMiss(int cis) {
@@ -134,49 +127,88 @@ public class Main {
 
     try (Connection conn = DriverManager.getConnection(PG_URL, PG_USER, PG_PASSWORD);
          PreparedStatement stmt = conn.prepareStatement(sql);
-         Jedis jedis = jedisPool.getResource()) {  // ✅ try-with-resources pour Jedis
+         Jedis jedis = jedisPool.getResource()) {
 
       stmt.setInt(1, cis);
       ResultSet rs = stmt.executeQuery();
 
       if (rs.next()) {
-        // Récupérer toutes les données
-        Map<String, String> medicament = new HashMap<>();
-        medicament.put("cis", String.valueOf(rs.getInt("cis")));
-        medicament.put("cip7", String.valueOf(rs.getInt("cip7")));
-        medicament.put("cip13", String.valueOf(rs.getLong("cip13")));
-        medicament.put("prese", rs.getString("prese"));
-        medicament.put("statadm", rs.getString("statadm"));
-        medicament.put("etacom", rs.getString("etacom"));
+        System.out.println(">> Donnée trouvée dans PostgreSQL. Mise à jour du cache...");
 
-        Date datedecl = rs.getDate("datedecl");
-        if (datedecl != null) {
-          medicament.put("datedecl", datedecl.toString());
+        long dbSize = jedis.dbSize();
+        if (dbSize >= 50) {
+          System.out.println(">> Cache plein (" + dbSize + " éléments). Lancement éviction LFU...");
+
+          Set<String> keysToRemove = jedis.zrange("medicaments", 0, 10);
+
+          for (String keyToRemove : keysToRemove) {
+            jedis.zrem("medicaments", keyToRemove);
+            jedis.del(keyToRemove);
+            System.out.println("   - Éviction (Suppression) : " + keyToRemove);
+          }
         }
 
-        medicament.put("agrcol", rs.getString("agrcol"));
-        medicament.put("prixe", String.valueOf(rs.getDouble("prixe")));
-        medicament.put("liste", String.valueOf(rs.getInt("liste")));
-        medicament.put("taux", String.valueOf(rs.getInt("taux")));
-        medicament.put("fprixe", String.valueOf(rs.getDouble("fprixe")));
-        medicament.put("disp", String.valueOf(rs.getDouble("disp")));
-
-        // Stocker dans Redis comme Hash (structure recommandée)
+        Map<String, String> medicament = mapResultSetToHash(rs);
         String key = "medicament:" + cis;
-        jedis.hset(key, medicament);
 
-        System.out.println("Cache miss - Médicament chargé dans Redis: " + rs.getString("prese"));
+        jedis.hset(key, medicament);
+        jedis.zadd("medicaments", 1, key);
+
+        System.out.println(">> Nouveau médicament ajouté au cache : " + rs.getString("prese"));
+
+        afficherZSet(jedis);
 
       } else {
-        System.out.println("Cache miss - Médicament non trouvé dans PostgreSQL");
+        System.out.println(">> Cache Miss impossible à résoudre : ID inexistant dans PostgreSQL.");
       }
 
       rs.close();
 
     } catch (SQLException e) {
-      System.err.println("Erreur lors du cache miss pour CIS " + cis);
-      e.printStackTrace();
+      System.err.println("Erreur SQL : " + e.getMessage());
     }
   }
 
+  private static void afficherZSet(Jedis jedis) {
+    System.out.println("\n[État du Classement LFU (ZSET)]");
+    Set<Tuple> elements = jedis.zrangeWithScores("medicaments", 0, -1);
+
+    if (elements.isEmpty()) {
+      System.out.println("(Vide)");
+    } else {
+      for (Tuple tuple : elements) {
+        System.out.printf("   Clé: %-20s | Fréquence (Score): %.0f%n", tuple.getElement(), tuple.getScore());
+      }
+    }
+    System.out.println("------------------------------------------------");
+  }
+
+  private static Map<String, String> mapResultSetToHash(ResultSet rs) throws SQLException {
+    Map<String, String> medicament = new HashMap<>();
+    medicament.put("cis", String.valueOf(rs.getInt("cis")));
+    medicament.put("cip7", String.valueOf(rs.getInt("cip7")));
+    medicament.put("cip13", String.valueOf(rs.getLong("cip13")));
+    medicament.put("prese", rs.getString("prese"));
+    medicament.put("statadm", rs.getString("statadm"));
+    medicament.put("etacom", rs.getString("etacom"));
+
+    Date datedecl = rs.getDate("datedecl");
+    if (datedecl != null) medicament.put("datedecl", datedecl.toString());
+
+    medicament.put("agrcol", rs.getString("agrcol"));
+    medicament.put("prixe", String.valueOf(rs.getDouble("prixe")));
+    medicament.put("liste", String.valueOf(rs.getInt("liste")));
+    medicament.put("taux", String.valueOf(rs.getInt("taux")));
+    medicament.put("fprixe", String.valueOf(rs.getDouble("fprixe")));
+    medicament.put("disp", String.valueOf(rs.getDouble("disp")));
+    return medicament;
+  }
+
+  private static void configureRedisForLRU() {
+    try (Jedis jedis = jedisPool.getResource()) {
+      jedis.flushDB();
+    } catch (Exception e) {
+      System.err.println("Erreur config Redis: " + e.getMessage());
+    }
+  }
 }

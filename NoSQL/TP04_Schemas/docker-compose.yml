@@ -1,0 +1,17 @@
+services:
+
+  postgres:
+    container_name: noSQL_postgres
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_DB=nosqldb
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+    volumes:
+      - nosql:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+
+volumes:
+  nosql:

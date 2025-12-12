@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>PokéMatch</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f7;
+            color: #333;
+            margin: 0 auto; /* Centre le contenu */
+            padding: 40px 20px;
+            max-width: 600px; /* Limite la largeur pour la lisibilité */
+            text-align: center;
+        }
+
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px; /* Espace entre les blocs */
+        }
+
+        h1 {
+            color: #cc0000;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        form p {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3b4cca;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+
+        /* Style pour les messages d'erreur de validation */
+        .error-message {
+            color: red;
+            display: block;
+            margin-top: 5px;
+            font-size: 0.9em;
+            font-style: italic;
+            text-align: left;
+        }
+
+        .result-box h2 {
+            color: #0077b6;
+            font-size: 1.5em;
+        }
+
+        /* Liste du Top X */
+        ol {
+            text-align: left;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1>PokéMatch - Trouvez votre Fétiche</h1>
+
+<div class="section">
+    <form th:action="@{/}" th:object="${userForm}" method="post">
+
+        <p>
+            <label for="firstName">Prénom :</label>
+            <input type="text" id="firstName" th:field="*{firstName}"/>
+            <span class="error-message" th:if="${#fields.hasErrors('firstName')}"
+                  th:errors="*{firstName}"></span>
+        </p>
+
+        <p>
+            <label for="lastName">Nom :</label>
+            <input type="text" id="lastName" th:field="*{lastName}"/>
+            <span class="error-message" th:if="${#fields.hasErrors('lastName')}"
+                  th:errors="*{lastName}"></span>
+        </p>
+
+        <button type="submit">Découvrir mon Pokémon</button>
+    </form>
+</div>
+
+<div class="section result-box" th:if="${pokemon != null}">
+    <h2 th:text="|Pokémon Fétiche : ${#strings.capitalize(pokemon.name)}|"></h2>
+</div>
+
+<div class="section top-list" th:if="${topPokemons}">
+    <h2 th:text="|Top ${topCount} Pokémons Fétiches !|">Top X Pokémons Fétiches !</h2>
+
+    <ol>
+        <li th:each="fav : ${topPokemons}">
+            <span th:text="${#strings.capitalize(fav.name)}">Nom du Pokémon</span>
+            (<span th:text="${fav.count}">0</span> fois choisi)
+        </li>
+    </ol>
+</div>
+
+</body>
+</html>

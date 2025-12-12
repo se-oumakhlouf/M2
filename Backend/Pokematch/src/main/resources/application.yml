@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: Pokematch
+
+pokemon:
+  number_of_favorites: 10

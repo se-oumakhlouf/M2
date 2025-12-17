@@ -1,17 +1,38 @@
-package fr.uge.dragonball.statistics;
+package fr.uge.dragonball.statistics.q5;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
-// Design Pattern : Decorator
+// Design Pattern : Visitor
 public class Application {
 
   public static List<BasicFighter> extractBasicFighters(Fighter fighter) {
-    return switch (fighter) {
-      case BasicFighter basic -> List.of(basic);
-      case TransformedFighter transformed -> extractBasicFighters(transformed.fighter());
-      case FusedFighter fused -> fused.fighters().stream().flatMap(f -> extractBasicFighters(f).stream()).toList();
+    FighterVisitor<Void, List<BasicFighter>> visitor = new FighterVisitor<>() {
+      @Override
+      public Void visit(BasicFighter fighter, List<BasicFighter> context) {
+        context.add(fighter);
+        return null;
+      }
+
+      @Override
+      public Void visit(TransformedFighter fighter, List<BasicFighter> context) {
+        fighter.fighter().accept(this, context);
+        return null;
+      }
+
+      @Override
+      public Void visit(FusedFighter fighter, List<BasicFighter> context) {
+        for (Fighter f : fighter.fighters()) {
+          f.accept(this, context);
+        }
+        return null;
+      }
     };
+
+    List<BasicFighter> basicFighters = new ArrayList<>();
+    fighter.accept(visitor, basicFighters);
+    return List.copyOf(basicFighters);
   }
 
   public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package fr.uge.dragonball.statistics;
+package fr.uge.dragonball.statistics.q5;
 
 import java.util.List;
 import java.util.Objects;
@@ -24,5 +24,10 @@ public record FusedFighter(List<Fighter> fighters) implements Fighter {
   @Override
   public int maxHealth() {
     return fighters.stream().mapToInt(Fighter::maxHealth).min().getAsInt();
+  }
+
+  @Override
+  public <R, C> R accept(FighterVisitor<R, C> visitor, C context) {
+    return visitor.visit(this, context);
   }
 }

@@ -1,4 +1,4 @@
-package fr.uge.dragonball.statistics;
+package fr.uge.dragonball.statistics.q5;
 
 import java.util.Objects;
 
@@ -8,6 +8,11 @@ public record BasicFighter(String name, int power, int maxHealth) implements Fig
     Objects.requireNonNull(name);
     if (power <= 0) throw new IllegalArgumentException("Power must be positive");
     if (maxHealth <= 0) throw new IllegalArgumentException("MaxHealth must be positive");
+  }
+
+  @Override
+  public <R, C> R accept(FighterVisitor<R, C> visitor, C context) {
+    return visitor.visit(this, context);
   }
 
   @Override

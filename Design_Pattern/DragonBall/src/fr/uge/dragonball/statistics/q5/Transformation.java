@@ -1,4 +1,4 @@
-package fr.uge.dragonball.statistics;
+package fr.uge.dragonball.statistics.q5;
 
 import java.util.HashSet;
 import java.util.Objects;

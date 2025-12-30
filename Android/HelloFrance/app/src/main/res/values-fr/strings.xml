@@ -1,3 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Bonjour la France</string>
+    <string name="hello_world">Bonjour le Monde</string>
+    <string name="quit">Quitter</string>
+    <string name="france">Carte de la France</string>
 </resources>

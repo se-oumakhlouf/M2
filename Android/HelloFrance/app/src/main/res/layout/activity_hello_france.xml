@@ -7,4 +7,50 @@
     android:layout_height="match_parent"
     tools:context=".HelloFranceActivity">
 
+    <TextView
+        android:id="@+id/topTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/hello_world"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@id/franceMap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/franceMap"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:contentDescription="@string/france"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toBottomOf="@id/downTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topTextView"
+        app:srcCompat="@drawable/france" />
+
+    <TextView
+        android:id="@+id/downTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/app_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@id/quitButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/quitButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/quit"
+        app:layout_constraintBottom_toBottomOf="@id/downTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        tools:ignore="VisualLintButtonSize" />
 </androidx.constraintlayout.widget.ConstraintLayout>

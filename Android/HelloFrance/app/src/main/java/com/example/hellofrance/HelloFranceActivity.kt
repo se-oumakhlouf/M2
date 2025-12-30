@@ -1,6 +1,7 @@
 package com.example.hellofrance
 
 import android.graphics.Color
+import android.graphics.Matrix
 import android.location.Location
 import android.os.Bundle
 import android.view.MotionEvent
@@ -76,8 +77,23 @@ class HelloFranceActivity : AppCompatActivity() {
     private fun handleTouch(event: MotionEvent) {
         val city = currentCity ?: return
 
-        val clickedLon = minLon + (event.x / franceMap.width) * (maxLon - minLon)
-        val clickedLat = maxLat - (event.y / franceMap.height) * (maxLat - minLat)
+        val inverse = Matrix()
+        franceMap.imageMatrix.invert(inverse)
+        val touchPoint = floatArrayOf(event.x, event.y)
+        inverse.mapPoints(touchPoint)
+        val xOnDrawable = touchPoint[0]
+        val yOnDrawable = touchPoint[1]
+
+        val drawable = franceMap.drawable
+        val drawableWidth = drawable.intrinsicWidth
+        val drawableHeight = drawable.intrinsicHeight
+
+        if (xOnDrawable < 0 || xOnDrawable > drawableWidth || yOnDrawable < 0 || yOnDrawable > drawableHeight) {
+            return
+        }
+
+        val clickedLon = minLon + (xOnDrawable / drawableWidth) * (maxLon - minLon)
+        val clickedLat = maxLat - (yOnDrawable / drawableHeight) * (maxLat - minLat)
 
         val results = FloatArray(1)
         Location.distanceBetween(

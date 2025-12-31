@@ -65,3 +65,33 @@
 </br>
 
 - ## Cypher Query Language
+
+    - **Structure :**
+        - **Declarative :** ASCI-art style pattern matching
+        - **Clauses sequence :** Linear composition (Input Table -> Operation -> Output Table)
+
+    - **Read Clauses :**
+        - **MATCH :** Pattern matching using Trail semantics *(Inner Join logic)*
+            - ***Node :*** `(n: Label {prop: val})`
+            - ***Rel :*** `-[r: TYPE]->`, `<-[r: TYPE]-` (undirected)
+            - ***Path :*** `p = (a)-[:REL*]->(b)` *(\* variable length)* 
+        - **OPTIONAL MATCH :** Like SQL Left Outer Join *(returns `null` if no match)
+        - **WHERE :** Filtering rows
+        - **WITH :** Projection, aggregation, or piping results to next clause
+        - **RETURN :** Defines the final output colums
+        - **ORDER BY / LIMIT / SKIP :** Sorting and pagination
+
+    - **Aggreagation :**
+        - **Vertical :** `count(n)`, `sum(n.age)`, `collection(n.name)` *(Implicit grouping in `WITH / RETURN`)*
+        - **Horizontal :** `reduce(acc=0, x IN list | acc + x)` *(Aggregate over a list within a row)*
+
+    - **Write Clauses *(ACID compliant)* :**
+        - **CREATE :** Creates new nodes / rels *`CREATE (n:User {name:"Selym"})`*
+        - **DELETE / DETACH DELETE :** Removes elements *(Detach removes adjacent edges first)*
+        - **SET :** Updates labels or properties *`SET n.age = 25`*
+        - **MERGE :** "Match or Create" *(Ensures existence without duplicates)*
+
+    - **Query Execution Flow :**
+        1. **MATCH** finds patterns in the graph -> generates a tables of matches
+        2. **WITH / WHERE** filters or transformes the table
+        3. **RETURN** outputs the final table

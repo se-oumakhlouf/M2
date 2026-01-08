@@ -5,7 +5,7 @@
 - ## Introduction & Concepts :
 
     - **DevOps Approach (CAMS) :**
-        - **C** ulture : Break down walls between Dev and Ops teams
+        - **C**ulture : Break down walls between Dev and Ops teams
         - **A**utomation : Automate everything (build, deployement, tests)
         - **M**easurement : Monitor technical and business metrics
         - **S**haring : Share knowledge, tools, and code

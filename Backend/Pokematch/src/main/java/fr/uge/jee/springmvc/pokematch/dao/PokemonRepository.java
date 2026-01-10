@@ -2,6 +2,7 @@ package fr.uge.jee.springmvc.pokematch.dao;
 
 import fr.uge.jee.springmvc.pokematch.dto.PokeApiResponse;
 import fr.uge.jee.springmvc.pokematch.dto.Pokemon;
+import fr.uge.jee.springmvc.pokematch.dto.PokemonDetailsDTO;
 import fr.uge.jee.springmvc.pokematch.dto.PokemonFavorite;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Repository;
@@ -19,7 +20,8 @@ public class PokemonRepository {
 
   private final WebClient webClient;
   private final List<Pokemon> pokemons = new ArrayList<>();
-  private final ConcurrentHashMap<Pokemon, Long> counts = new ConcurrentHashMap<>();
+  private final ConcurrentHashMap<String, Long> counts = new ConcurrentHashMap<>();
+  private final ConcurrentHashMap<String, byte[]> imageCache = new ConcurrentHashMap<>();
 
   public PokemonRepository (WebClient webClient) {
     this.webClient = webClient;
@@ -34,7 +36,17 @@ public class PokemonRepository {
         .block();
 
     if (response != null && response.results() != null) {
-      pokemons.addAll(response.results());
+      for (var pokemon : response.results()) {
+        var details = webClient.get()
+                          .uri(pokemon.url())
+                          .retrieve()
+                          .bodyToMono(PokemonDetailsDTO.class)
+                          .block();
+        if (details != null && details.sprites() != null && details.sprites().front_default() != null) {
+          Pokemon toAddPokemon = new Pokemon(pokemon.name(), pokemon.url(), details.sprites().front_default());
+          pokemons.add(toAddPokemon);
+        }
+      }
     }
   }
 
@@ -43,15 +55,30 @@ public class PokemonRepository {
   }
 
   public void addPokemon (Pokemon pokemon) {
-    counts.compute(pokemon, (key, value) -> (value == null) ? 1L : value + 1);
+    counts.compute(pokemon.name(), (key, value) -> (value == null) ? 1L : value + 1);
   }
 
   public List<PokemonFavorite> getTopFavorites(int limit) {
     return counts.entrySet().stream()
-        .map(entry -> new PokemonFavorite(entry.getKey().name(), entry.getValue()))
+        .map(entry -> new PokemonFavorite(entry.getKey(), entry.getValue()))
         .sorted(Comparator.comparing(PokemonFavorite::count).reversed())
         .limit(limit)
         .collect(Collectors.toList());
+  }
+
+  public byte[] getPokemonImage(String name) {
+    return imageCache.computeIfAbsent(name, k -> {
+      Pokemon p = pokemons.stream()
+                      .filter(poke -> poke.name().equals(k))
+                      .findFirst()
+                      .orElseThrow(() -> new RuntimeException("Pokemon non trouvé"));
+
+      return webClient.get()
+                 .uri(p.imageUrl())
+                 .retrieve()
+                 .bodyToMono(byte[].class)
+                 .block();
+    });
   }
 
 }

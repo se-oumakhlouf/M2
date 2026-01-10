@@ -5,6 +5,7 @@
     <title>PokéMatch</title>
 
     <style>
+        /* styles reformaté à l'aide d'un LLM */
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f4f7;
@@ -107,6 +108,7 @@
 
 <div class="section result-box" th:if="${pokemon != null}">
     <h2 th:text="|Pokémon Fétiche : ${#strings.capitalize(pokemon.name)}|"></h2>
+    <img th:src="@{/pokemon/image/{name}(name=${pokemon.name})}" alt="Sprite Pokemon" />
 </div>
 
 <div class="section top-list" th:if="${topPokemons}">

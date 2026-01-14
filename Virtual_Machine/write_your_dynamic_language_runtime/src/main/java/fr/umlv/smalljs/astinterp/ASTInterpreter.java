@@ -152,16 +152,29 @@ public final class ASTInterpreter {
         yield UNDEFINED;
       }
       case ObjectLiteral(Map<String, Expr> initMap, int lineNumber) -> {
-				throw new UnsupportedOperationException("TODO ObjectLiteral");
+        var object = JSObject.newObject(null);
+        for (var entry : initMap.entrySet()) {
+          object.register(entry.getKey(), visit(entry.getValue(), env));
+        }
+				yield object;
       }
       case FieldAccess(Expr receiver, String name, int lineNumber) -> {
-        throw new UnsupportedOperationException("TODO FieldAccess");
+        var object = asJSObject(visit(receiver, env), lineNumber);
+        yield object.lookupOrDefault(name, UNDEFINED);
       }
       case FieldAssignment(Expr receiver, String name, Expr expr, int lineNumber) -> {
-        throw new UnsupportedOperationException("TODO FieldAssignment");
+        var object = asJSObject(visit(receiver, env), lineNumber);
+        object.register(name, visit(expr, env));
+        yield UNDEFINED;
       }
       case MethodCall(Expr receiver, String name, List<Expr> args, int lineNumber) -> {
-        throw new UnsupportedOperationException("TODO MethodCall");
+        var object = asJSObject(visit(receiver, env), lineNumber);
+        var method = object.lookupOrDefault(name, null);
+        if (!(method instanceof JSObject function)) {
+          throw new Failure("invalid method call on " + object + " at line " + lineNumber);
+        }
+        var arguments = args.stream().map(arg -> visit(arg, env)).toArray();
+        yield function.invoke(object, arguments);
       }
     };
   }

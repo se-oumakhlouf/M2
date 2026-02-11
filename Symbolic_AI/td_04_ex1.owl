@@ -1,0 +1,386 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/selym/ontologies/2026/1/semantic/"
+     xml:base="http://www.semanticweb.org/selym/ontologies/2026/1/semantic/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:semantic="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aAncetre -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aAncetre">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aEnfant -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aEnfant">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aParent"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aMere -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aMere">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aParent"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aParent -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aParent">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aAncetre"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aPere -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aPere">
+        <rdfs:subPropertyOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aParent"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Enfant -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Enfant">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Personne"/>
+                    <owl:Restriction>
+                        <owl:onProperty>
+                            <rdf:Description>
+                                <owl:inverseOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aEnfant"/>
+                            </rdf:Description>
+                        </owl:onProperty>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Personne"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Personne"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Personne"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Homme -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Homme">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Personne"/>
+        <owl:disjointWith rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Mere"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Mere -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Mere">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aEnfant"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Personne"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Parent -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Parent">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Mere"/>
+                    <rdf:Description rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Pere"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Personne"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Pere -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Pere">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Homme"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aEnfant"/>
+                        <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Personne"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Homme"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Personne -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Personne">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aMere"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aPere"/>
+                <owl:someValuesFrom rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Homme"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#aParent"/>
+                <owl:qualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:qualifiedCardinality>
+                <owl:onClass rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Personne"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G1_Agathe -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G1_Agathe">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G2_Bruno"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G1_Albert -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G1_Albert">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Homme"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G2_Bernard"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G1_Alice -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G1_Alice">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G2_Beatrice"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G1_Anna -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G1_Anna">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G2_Bernard"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G1_Arthur -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G1_Arthur">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Homme"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G2_Beatrice"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G2_Beatrice -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G2_Beatrice">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G3_Chloe"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G2_Bella -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G2_Bella">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G3_Charles"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G2_Bernard -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G2_Bernard">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Homme"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G3_Charles"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G2_Blandine -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G2_Blandine">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G3_Cedric"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G2_Bruno -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G2_Bruno">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Homme"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G3_Cedric"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G3_Cedric -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G3_Cedric">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Homme"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_Dora"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G3_Celine -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G3_Celine">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_Diane"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G3_Charles -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G3_Charles">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Homme"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_David"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_Denis"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G3_Chloe -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G3_Chloe">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_David"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_Denis"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G3_Claire -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G3_Claire">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme"/>
+        <semantic:aEnfant rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_Dora"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_Daniel -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_Daniel">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Homme"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_David -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_David">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Homme"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_Denis -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_Denis">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Homme"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_Diane -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_Diane">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_Dora -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#G4_Dora">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/semantic#Femme"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+

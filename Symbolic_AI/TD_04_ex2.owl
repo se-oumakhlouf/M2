@@ -1,0 +1,556 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2/"
+     xml:base="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:symoblic_2="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#hasKeyword -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#hasKeyword">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paper"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Keyword"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#hasTitle -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#hasTitle">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paper"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Title"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#inField -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#inField">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paper"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Field"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#isAuthor -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#isAuthor">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Author"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paper"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#isCoauthor -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#isCoauthor">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Author"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paper"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#isFirstAuthor -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#isFirstAuthor">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Author"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paper"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#publishedIn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#publishedIn">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paper"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#publishedOn -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#publishedOn">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#PubDate"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#supervises -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#supervises">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Supervisor"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Student"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#AssistantProf -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#AssistantProf">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Supervisor"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Author -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Author"/>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Coauthor -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Coauthor">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Author"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Field -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Field"/>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#FirstAuthor -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#FirstAuthor">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Author"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal"/>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Keyword -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Keyword"/>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Master -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Master">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Student"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paper -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paper"/>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Phd -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Phd">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Student"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Prof -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Prof">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Supervisor"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#PubDate -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#PubDate"/>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Student -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Student"/>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Supervisor -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Supervisor"/>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Title -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Title"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Alex -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Alex">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Prof"/>
+        <symoblic_2:supervises rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Bill"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Anne -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Anne">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#AssistantProf"/>
+        <symoblic_2:supervises rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Rose"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Application -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Application">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Field"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Applications -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Applications">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Applications_of_SW -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Applications_of_SW">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paper"/>
+        <symoblic_2:hasKeyword rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Applications"/>
+        <symoblic_2:hasKeyword rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#SW"/>
+        <symoblic_2:hasKeyword rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#of"/>
+        <symoblic_2:inField rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Application"/>
+        <symoblic_2:publishedIn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_Of_Computing"/>
+        <symoblic_2:publishedIn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_Of_Semantic_Web"/>
+        <symoblic_2:publishedIn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_of_Applied_Technologies"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Bill -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Bill">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Master"/>
+        <symoblic_2:isAuthor rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Applications_of_SW"/>
+        <symoblic_2:isCoauthor rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#RDF_Language"/>
+        <symoblic_2:isCoauthor rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#SPARQL_Language"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Clare -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Clare">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Phd"/>
+        <symoblic_2:isAuthor rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#RDF_Language"/>
+        <symoblic_2:isCoauthor rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Applications_of_SW"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Complexity -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Complexity">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Field"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Jessica -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Jessica">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#AssistantProf"/>
+        <symoblic_2:supervises rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Max"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_Of_Computing -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_Of_Computing">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal"/>
+        <symoblic_2:publishedOn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#2024"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_Of_Semantic_Web -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_Of_Semantic_Web">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal"/>
+        <symoblic_2:publishedOn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#2018-2020"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_of_Applied_Technologies -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_of_Applied_Technologies">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal"/>
+        <symoblic_2:publishedOn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#2023"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Language -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Language">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Marie -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Marie">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Prof"/>
+        <symoblic_2:supervises rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Max"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Max -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Max">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Phd"/>
+        <symoblic_2:isAuthor rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#OWL_Language"/>
+        <symoblic_2:isCoauthor rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#P_equals_NP"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#OWL -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#OWL">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#OWL_Language -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#OWL_Language">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paper"/>
+        <symoblic_2:hasKeyword rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Language"/>
+        <symoblic_2:hasKeyword rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#OWL"/>
+        <symoblic_2:inField rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Semantic_Web"/>
+        <symoblic_2:publishedIn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_Of_Computing"/>
+        <symoblic_2:publishedIn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_Of_Semantic_Web"/>
+        <symoblic_2:publishedIn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_of_Applied_Technologies"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Odile -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Odile">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Prof"/>
+        <symoblic_2:supervises rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Clare"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#P -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#P">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#P_equals_NP -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#P_equals_NP">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paper"/>
+        <symoblic_2:hasKeyword rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#P"/>
+        <symoblic_2:hasKeyword rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#equals"/>
+        <symoblic_2:inField rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Complexity"/>
+        <symoblic_2:publishedIn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_Of_Computing"/>
+        <symoblic_2:publishedIn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_Of_Semantic_Web"/>
+        <symoblic_2:publishedIn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_of_Applied_Technologies"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paul -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paul">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Prof"/>
+        <symoblic_2:supervises rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Rose"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Pierre -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Pierre">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#AssistantProf"/>
+        <symoblic_2:supervises rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Bill"/>
+        <symoblic_2:supervises rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Clare"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#RDF -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#RDF">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#RDF_Language -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#RDF_Language">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paper"/>
+        <symoblic_2:hasKeyword rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Language"/>
+        <symoblic_2:hasKeyword rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#RDF"/>
+        <symoblic_2:inField rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Semantic_Web"/>
+        <symoblic_2:publishedIn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_Of_Computing"/>
+        <symoblic_2:publishedIn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_Of_Semantic_Web"/>
+        <symoblic_2:publishedIn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_of_Applied_Technologies"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Rose -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Rose">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Master"/>
+        <symoblic_2:isAuthor rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#P_equals_NP"/>
+        <symoblic_2:isAuthor rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#SPARQL_Language"/>
+        <symoblic_2:isCoauthor rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#OWL_Language"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#SPARQL -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#SPARQL">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#SPARQL_Language -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#SPARQL_Language">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Paper"/>
+        <symoblic_2:hasKeyword rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Language"/>
+        <symoblic_2:hasKeyword rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#SPARQL"/>
+        <symoblic_2:inField rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Semantic_Web"/>
+        <symoblic_2:publishedIn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_Of_Computing"/>
+        <symoblic_2:publishedIn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_Of_Semantic_Web"/>
+        <symoblic_2:publishedIn rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Journal_of_Applied_Technologies"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#SW -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#SW">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Semantic_Web -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Semantic_Web">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Field"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#equals -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#equals">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#of -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#of">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#Keyword"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#2018-2020 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#2018-2020">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#PubDate"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#2023 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#2023">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#PubDate"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#2024 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#2024">
+        <rdf:type rdf:resource="http://www.semanticweb.org/selym/ontologies/2026/1/symoblic_2#PubDate"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+

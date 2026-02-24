@@ -240,29 +240,43 @@ public final class ByteCodeRewriter {
 
       }
       case ObjectLiteral(Map<String, Expr> initMap, int lineNumber) -> {
-        throw new UnsupportedOperationException("TODO ObjectLiteral");
-        // call newObject with an INVOKESTATIC
+        // call newObject
+        mv.visitInsn(ACONST_NULL);
+        mv.visitMethodInsn(INVOKESTATIC, JSOBJECT, "newObject", "(L" + JSOBJECT + ";)L" + JSOBJECT + ";", false);
         // for each initialization expression
+        initMap.forEach((key, init) -> {
+          mv.visitInsn(DUP);
           // generate a string with the key
+          mv.visitLdcInsn(key);
+          visit(init, env, mv, dictionary);
           // call register on the JSObject
+          mv.visitMethodInsn(INVOKEVIRTUAL, JSOBJECT, "register", "(Ljava/lang/String;Ljava/lang/Object;)V", false);
+        });
       }
       case FieldAccess(Expr receiver, String name, int lineNumber) -> {
-        throw new UnsupportedOperationException("TODO FieldAccess");
         // visit the receiver
+        visit(receiver, env, mv, dictionary);
         // generate an invokedynamic that goes a get through BSM_GET
+        mv.visitInvokeDynamicInsn("get", "(Ljava/lang/Object;)Ljava/lang/Object;", BSM_GET, name);
       }
       case FieldAssignment(Expr receiver, String name, Expr expr, int lineNumber) -> {
-        throw new UnsupportedOperationException("TODO FieldAssignment");
         // visit the receiver
+        visit(receiver, env, mv, dictionary);
         // visit the expression
+        visit(expr, env, mv, dictionary);
         // generate an invokedynamic that goes a set through BSM_SET
+        mv.visitInvokeDynamicInsn("set", "(Ljava/lang/Object;Ljava/lang/Object;)V", BSM_SET, name);
       }
       case MethodCall(Expr receiver, String name, List<Expr> args, int lineNumber) -> {
-        throw new UnsupportedOperationException("TODO MethodCall");
         // visit the receiver
+        visit(receiver, env, mv, dictionary);
         // for each argument
+        for (Expr arg : args) {
           // visit the argument
+          visit(arg, env, mv, dictionary);
+        }
         // generate an invokedynamic that call BSM_METHODCALL
+        mv.visitInvokeDynamicInsn(name, "(" + "Ljava/lang/Object;".repeat(1 + args.size()) + ")Ljava/lang/Object;", BSM_METHODCALL);
       }
     }
   }
